@@ -80,7 +80,6 @@
         if ((stdout != null) && (err == null)) {
           set_ec2_data(stdout);
         }
-        console.log(uptime_data);
         uptime_ref.set(uptime_data);
         setInterval(update_uptime, 5000);
         return done();
