@@ -26,7 +26,7 @@
         name = pkg.name;
         number = [os.hostname(), process.pid].join('-').replace(/\./g, '-');
       }
-      url = app.config.env.firebase + ('/uptime/' + app.environment + '/' + name + '/' + number);
+      url = app.config.firebase.url + ('/uptime/' + app.environment + '/' + name + '/' + number);
       uptime_ref = firebase_builder(url);
       uptime_ref.onDisconnect().remove();
       update_uptime = function() {
@@ -80,6 +80,7 @@
         if ((stdout != null) && (err == null)) {
           set_ec2_data(stdout);
         }
+        console.log(uptime_data);
         uptime_ref.set(uptime_data);
         setInterval(update_uptime, 5000);
         return done();

@@ -21,7 +21,7 @@ firebase_uptime = (app) ->
       name = pkg.name
       number = [os.hostname(), process.pid].join('-').replace(/\./g, '-')
     
-    url = app.config.env.firebase + ('/uptime/' + app.environment + '/' + name + '/' + number)
+    url = app.config.firebase.url + ('/uptime/' + app.environment + '/' + name + '/' + number)
     uptime_ref = firebase_builder(url)
     uptime_ref.onDisconnect().remove()
     
@@ -68,6 +68,7 @@ firebase_uptime = (app) ->
     
     exec 'ec2metadata', (err, stdout, stderr) ->
       set_ec2_data(stdout) if stdout? and not err?
+      
       uptime_ref.set(uptime_data)
       setInterval(update_uptime, 5000)
       done()
